@@ -1,4 +1,4 @@
-# pi-ghost
+# Pi-ghost
 
 Pi agent integration for Ghost — the first database built for agents.
 
