@@ -3,7 +3,6 @@
 Pi agent integration for the Ghost MCP ecosystem. Ghost's MCP setup includes 8 agents (Claude Code, Codex, Google Antigravity, etc.) — this package adds native **Pi** support.
 
 ## Prerequisites
-- [Pi CLI](https://pi.dev) installed and available in your PATH
 - Node.js and npm installed (for global package management)
 
 > **⚠️ Critical:** When downloading the Ghost repository, you must use the `npm install` method to set up dependencies correctly.
