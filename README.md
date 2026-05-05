@@ -1,43 +1,82 @@
 # pi-ghost
 
-Pi agent integration for the Ghost MCP ecosystem. Ghost's MCP setup includes 8 agents (Claude Code, Codex, Google Antigravity, etc.) — this package adds native **Pi** support.
+<div align="center">
+
+**Pi agent integration for [Ghost](https://ghost.build) — the first database built for agents.**
+
+[![Ghost](https://img.shields.io/badge/Ghost-TimescaleDB-00b894?style=flat&logo=postgresql)](https://ghost.build)
+[![Pi](https://img.shields.io/badge/Pi-Agent-ff6b6b?style=flat&logo=claude)](https://pi.dev)
+[![npm](https://img.shields.io/npm/v/pi-ghost?style=flat)](https://www.npmjs.com/package/pi-ghost)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+
+</div>
+
+---
+
+## What is Ghost?
+
+Ghost is a database designed for AI agents — built on [TimescaleDB](https://github.com/timescale/timescaledb), offering unlimited Postgres databases you can create, fork, and discard freely.
+
+Ghost's MCP ecosystem includes 8 agents: **Claude Code**, **Codex**, **Google Antigravity**, and now **Pi** via this package.
 
 ## Prerequisites
-- Node.js and npm installed (for global package management)
 
-> **⚠️ Critical:** When downloading the Ghost repository, you must use the `npm install` method to set up dependencies correctly.
+- [Pi CLI](https://pi.dev) installed and in your `PATH`
+- [Node.js](https://nodejs.org) and npm
+
+> **⚠️ Critical:** When setting up the Ghost repository, you must use `npm install` to configure dependencies correctly.
+
+---
 
 ## Installation
 
-Choose one of the following methods to install pi-ghost:
+### Option 1: Via Pi (npm package)
 
-### Method 1: Install via Pi (npm package)
 ```bash
 pi install npm:pi-ghost
 ```
 
-### Method 2: Install via Pi (git repository)
+### Option 2: Via Pi (git repository)
+
 ```bash
 pi install git:https://github.com/amugoodbad229/pi-ghost.git
 ```
 
-## What The Installer Does
+---
 
-When you run either installation command, pi-ghost will **automatically**:
+## What the Installer Does
 
-1. **Check** if `@ghost.build/cli` is already installed globally via npm
-   - ✅ If present: skip
-   - ⬇️ If missing: runs `npm install -g @ghost.build/cli`
+| Step | Action | Auto-yes |
+|------|--------|----------|
+| 1 | Check `@ghost.build/cli` globally | ✅ |
+| 2 | Install if missing: `npm install -g @ghost.build/cli` | ✅ |
+| 3 | Check `pi-mcp-adapter` | ✅ |
+| 4 | Install if missing: `pi install npm:pi-mcp-adapter` | ✅ |
 
-2. **Check** if `pi-mcp-adapter` is already installed (via Pi or npm)
-   - ✅ If present: skip
-   - ⬇️ If missing: runs `pi install npm:pi-mcp-adapter`
+Works on **Windows**, **macOS**, and **Linux** — fully non-interactive.
 
-3. **Works cross-platform** — Windows, macOS, Linux — no extra configuration required
+---
 
-## Post-Installation
+## After Installation
 
-After installation, Pi will be available alongside other Ghost MCP agents. Refer to Ghost's MCP documentation for workflow integration steps.
+Run `/reload` in Pi to load the Ghost integration.
+
+```bash
+ghost mcp install    # Ghost's MCP setup
+# Pi is now included alongside Claude Code, Codex, etc.
+```
+
+---
+
+## Resources
+
+- [Ghost Documentation](https://ghost.build/docs)
+- [Ghost GitHub](https://github.com/timescale/ghost)
+- [TimescaleDB](https://github.com/timescale/timescaledb)
+- [Pi Agent](https://pi.dev)
+
+---
 
 ## License
-Apache-2.0 license
+
+[Apache-2.0](LICENSE)
