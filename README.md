@@ -1,4 +1,4 @@
-# pi-ghost
+# Pi-ghost
 
 Adds Pi agent to Ghost MCP ecosystem via pi-mcp-adapter.
 
