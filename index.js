@@ -60,6 +60,7 @@ function checkAndInstallPiMcpAdapter() {
     const result = execSync('pi list 2>/dev/null || pi ls 2>/dev/null', { encoding: 'utf8', shell: true });
     if (result.includes('pi-mcp-adapter')) {
       console.log('✓ pi-mcp-adapter is already installed');
+      addPiToMcpConfig();
       return;
     }
   } catch {
@@ -69,12 +70,49 @@ function checkAndInstallPiMcpAdapter() {
   // Alternative: check if pi-mcp-adapter npm package exists globally
   if (isGlobalPackageInstalled('pi-mcp-adapter')) {
     console.log('✓ pi-mcp-adapter is already installed');
+    addPiToMcpConfig();
     return;
   }
 
   console.log('Installing pi-mcp-adapter via Pi (non-interactive)...');
   runInstall('pi', ['install', 'npm:pi-mcp-adapter']);
   console.log('✓ pi-mcp-adapter installed');
+  addPiToMcpConfig();
+}
+
+function addPiToMcpConfig() {
+  console.log('\n[3/3] Adding Ghost MCP server to pi-mcp-adapter config...');
+  
+  // Determine Pi agent dir
+  const piAgentDir = process.env.PI_CODING_AGENT_DIR || path.join(os.homedir(), '.pi', 'agent');
+  const mcpConfigPath = path.join(piAgentDir, 'mcp.json');
+  
+  // Ghost MCP server config
+  const ghostServerEntry = {
+    'command': 'ghost',
+    'args': ['mcp']
+  };
+  
+  try {
+    // Read existing config or create new
+    let config = { mcpServers: {} };
+    if (fs.existsSync(mcpConfigPath)) {
+      config = JSON.parse(fs.readFileSync(mcpConfigPath, 'utf8'));
+      if (!config.mcpServers) config.mcpServers = {};
+    }
+    
+    // Add ghost server if not already present
+    if (!config.mcpServers['ghost']) {
+      config.mcpServers['ghost'] = ghostServerEntry;
+      fs.mkdirSync(piAgentDir, { recursive: true });
+      fs.writeFileSync(mcpConfigPath, JSON.stringify(config, null, 2));
+      console.log('✓ Added Ghost MCP server to ' + mcpConfigPath);
+    } else {
+      console.log('✓ Ghost MCP server already configured');
+    }
+  } catch (err) {
+    console.error('Failed to update MCP config:', err.message);
+  }
 }
 
 function main() {
@@ -95,8 +133,7 @@ function main() {
   console.log('\n========================================');
   console.log('✓ pi-ghost setup complete!');
   console.log('========================================\n');
-  console.log('Pi is now integrated with Ghost MCP ecosystem.');
-  console.log('Available agents: Claude Code, Codex, Google Antigravity, Pi, and more.');
+  console.log('Pi is now integrated with Ghost MCP ecosystem via pi-mcp-adapter.');
 }
 
 main();
