@@ -16,7 +16,9 @@ function runCheck(command, args = []) {
 
 function runInstall(command, args = []) {
   console.log(`Running: ${command} ${args.join(' ')}`);
-  const result = spawnSync(command, args, { stdio: 'inherit', shell: true });
+  // Force non-interactive mode: auto-accept all prompts
+  const env = Object.assign({}, process.env, { npm_config_yes: 'true', CI: 'true' });
+  const result = spawnSync(command, args, { stdio: 'inherit', shell: true, env });
   if (result.status !== 0) {
     console.error(`Failed: ${command} exited with status ${result.status}`);
     process.exit(1);
@@ -45,8 +47,8 @@ function checkAndInstallGhostCLI() {
   if (isGlobalPackageInstalled('@ghost.build/cli')) {
     console.log('✓ @ghost.build/cli is already installed globally');
   } else {
-    console.log('Installing @ghost.build/cli globally...');
-    runInstall('npm', ['install', '-g', '@ghost.build/cli']);
+    console.log('Installing @ghost.build/cli globally (non-interactive)...');
+    runInstall('npm', ['install', '-g', '@ghost.build/cli', '--yes']);
     console.log('✓ @ghost.build/cli installed');
   }
 }
@@ -70,7 +72,7 @@ function checkAndInstallPiMcpAdapter() {
     return;
   }
 
-  console.log('Installing pi-mcp-adapter via Pi...');
+  console.log('Installing pi-mcp-adapter via Pi (non-interactive)...');
   runInstall('pi', ['install', 'npm:pi-mcp-adapter']);
   console.log('✓ pi-mcp-adapter installed');
 }
