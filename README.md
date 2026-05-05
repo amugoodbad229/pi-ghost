@@ -9,8 +9,6 @@ Ghost is a database designed for AI agents, built on TimescaleDB (PostgreSQL). I
 Ghost's MCP ecosystem includes 8 agents: Claude Code, Codex, Google Antigravity, and now Pi via this package.
 
 ## Prerequisites
-
-- Pi CLI installed and in your PATH (https://pi.dev)
 - Node.js and npm
 
 **Critical:** When setting up the Ghost repository, you must use `npm install` to configure dependencies correctly.
