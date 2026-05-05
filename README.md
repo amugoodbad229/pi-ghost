@@ -18,13 +18,12 @@ pi install git:https://github.com/amugoodbad229/pi-ghost.git
 
 1. Checks `@ghost.build/cli` — installs globally if missing
 2. Checks `pi-mcp-adapter` — installs via Pi if missing
-3. Works on Windows, macOS, Linux (non-interactive)
+3. Adds Pi to pi-mcp-adapter's MCP config
+4. Works on Windows, macOS, Linux (non-interactive)
 
 ## After installation
 
 Run `/reload` in Pi to load the integration.
-
-Pi will appear alongside other Ghost MCP agents.
 
 ## License
 
