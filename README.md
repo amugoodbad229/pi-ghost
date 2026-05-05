@@ -41,4 +41,4 @@ When you run either installation command, pi-ghost will **automatically**:
 After installation, Pi will be available alongside other Ghost MCP agents. Refer to Ghost's MCP documentation for workflow integration steps.
 
 ## License
-MIT
+Apache-2.0 license
